@@ -16,10 +16,6 @@ export const Auth = () => {
     clearError()
   }, [error, message, clearError])
 
-  useEffect(() => {
-    window.M.updateTextFields()
-  }, []) 
-
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
@@ -27,7 +23,8 @@ export const Auth = () => {
   const registerHandler = async () => {
     try {
       const data = await request('/api/auth/register', 'POST', {...form})
-      message(data.message)
+      message(data.message);
+      setForm({email: '', password: ''})
     } catch (e) {}
   }
 

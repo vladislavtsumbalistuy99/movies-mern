@@ -49,7 +49,7 @@ router.post(
   '/login',
   [
     check('email', 'Enter email').normalizeEmail().isEmail(),
-    check('password', 'Enter пароль').exists()
+    check('password', 'Enter password').exists()
   ],
   async (req, res) => {
   try {

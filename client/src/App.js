@@ -7,7 +7,7 @@ import {Navbar} from './components/Navbar'
 import 'materialize-css'
 
 function App() {
-  const {token, login, logout, userId, ready} = useAuth()
+  const {token, login, logout, userId} = useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
