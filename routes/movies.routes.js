@@ -20,9 +20,7 @@ router.post("/addMovie", async (req, res) => {
   try {
     const { id, title, year, format, stars } = req.body;
     const arrStars = stars.split(' ');
-    console.log(arrStars);
-    const movie = new Movies({ id, title, year, format, stars:arrStars });
-    console.log(movie);
+    const movie = new Movies({ id, title, year, format, stars:arrStars });;
     await movie.save();
 
     res.status(201).json({ message: "Movie added" });
