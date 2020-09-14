@@ -29,7 +29,7 @@ Requests are implemented using a custom http hook.
 1. On the authorization page, enter the email and password for registration and / or log in to the system
 ![alt text](client/public/screenshots/1.jpeg)
 2. On the movies list page all movies are shown. You can show movie detail, delete, sort by name and search by name or by stars. No more than four movies are shown on one page. select another page on the pagination menu to go to it
-![alt text](client/public/screenshots/2.jpg)
+![alt text](client/public/screenshots/2.JPG)
 ![alt text](client/public/screenshots/3.jpg)
 ![alt text](client/public/screenshots/4.jpg)
 3. On the add new movies page you can add movie by filling out a form or downloading from a file
