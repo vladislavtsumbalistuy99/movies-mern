@@ -50,7 +50,9 @@ export const Movies = () => {
         setMovies(newMovies);
       } else {
         const data = await request("/api/movies/search/" + searchPar, "GET");
-        if (typeof data != Array) {
+        console.log(typeof(data)) 
+        console.log(data) 
+        if (!Array.isArray(data)) {  
           const newData = [data];
           setMovies(newData);
         } else {
