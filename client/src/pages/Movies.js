@@ -77,13 +77,13 @@ export const Movies = () => {
       <h1>Movies list:</h1>
       <div className="row">
         <i
-          className="small material-icons col s8 push-s3"
+          className="small material-icons col s8 push-s3 waves-effect"
           onClick={sortHandler}
         >
           sort_by_alpha
         </i>
         <div className="input-field col s6 push-s3">
-          <i className="material-icons prefix" onClick={showSearchResult}>
+          <i className="material-icons prefix waves-effect" onClick={showSearchResult}>
             search
           </i>
           <textarea
