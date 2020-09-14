@@ -24,7 +24,7 @@ There are models for users and movies and their routes
 #### Client
 The client has pages for user authorization, a list of movies and a page for adding movies.
 Requests are implemented using a custom http hook. Hooks are also used to display messages to the user and authorization. 
-Page routing is implemented using the "react-router-dom" 
+Page routing is implemented using the "react-router-dom"
 
 ## User manual
 1. On the authorization page, enter the email and password for registration and / or log in to the system
