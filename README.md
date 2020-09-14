@@ -35,7 +35,6 @@ Requests are implemented using a custom http hook.
 3. On the add new movies page you can add movie by filling out a form or downloading from a file
 ![alt text](client/public/screenshots/5.JPG)
 
-
 ## Contact
 
 Vladyslav Tsymbalistuy - tsymbalistyi.vladislav@gmail.com
