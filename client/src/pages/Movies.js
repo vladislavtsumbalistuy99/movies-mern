@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 import { Pagination } from "../components/Pagination";
+import swal from 'sweetalert';
 
 export const Movies = () => {
   const { request, error, clearError } = useHttp();
@@ -32,11 +33,37 @@ export const Movies = () => {
 
   const deleteMovieHandler = async (id) => {
     try {
-      const data = await request("/api/movies/" + id, "DELETE");
-      const newMovies = await request("/api/movies/", "GET");
-      setMovies(newMovies);
-      message(data.message);
+     const willDelete = await swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this moovie!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      if (willDelete){
+        const data = await request("/api/movies/" + id, "DELETE");
+        const newMovies = await request("/api/movies/", "GET");
+        setMovies(newMovies);
+        swal("Poof! This moovie has been deleted!", {
+          icon: "success",
+        });
+        //message(data.message);
+      }
+      else {
+        swal("Your imaginary file is safe!");
+      }
     } catch (e) {}
+   
+    // try {
+    //   const conf = window.confirm('Are you sure?')
+    //   if (conf){
+    //     const data = await request("/api/movies/" + id, "DELETE");
+    //     const newMovies = await request("/api/movies/", "GET");
+    //     setMovies(newMovies);
+    //     message(data.message);
+    //   }
+    //   else return
+    // } catch (e) {}
   };
 
   const searchHandler = async (event) => {
