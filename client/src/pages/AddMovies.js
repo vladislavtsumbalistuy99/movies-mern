@@ -1,11 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
+import Select from "react-select";
+
+
 
 export const AddMovies = () => {
   const message = useMessage();
   const { request, error, clearError } = useHttp();
   const shortid = require("shortid");
+  const colourStyles = {
+    control: styles => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: '#2196F3',
+        cursor: isDisabled ? 'not-allowed' : 'default',
+    
+      };
+    },
+  };
+  const options = [
+    { value: "DVD", label: "DVD" },
+    { value: "VHS", label: "VHS" },
+    { value: "Blu-Ray", label: "Blu-Ray" },
+  ];
 
   const [form, setForm] = useState({
     id: "",
@@ -15,6 +34,7 @@ export const AddMovies = () => {
     stars: [],
   });
 
+  const [selectedOption, setSelectedOption] = useState(null);
   const [uploadMovies, setUploadMovies] = useState([]);
 
   useEffect(() => {
@@ -30,8 +50,17 @@ export const AddMovies = () => {
     });
   };
 
+  const changeSelectorHandler = (selectedOption) => {
+    setSelectedOption(selectedOption)
+    setForm({
+      ...form,
+      format: selectedOption.value,
+    });
+  };
+
   const newMovieHandler = async () => {
     try {
+      console.log(form)
       const data = await request("/api/movies/addMovie", "POST", { ...form });
       message(data.message);
       setForm({
@@ -120,17 +149,15 @@ export const AddMovies = () => {
                 />
               </div>
 
-              <div className="input-field">
-                <input
-                  placeholder="Enter format"
-                  id="format"
-                  type="text"
-                  name="format"
-                  className="yellow-input"
-                  value={form.format}
-                  onChange={changeHandler}
-                />
-              </div>
+              <Select
+                value={selectedOption}
+                onChange={changeSelectorHandler}
+                options={options}
+                name="format"
+                id="format"
+                styles={colourStyles}
+                placeholder='Choose type'
+              />
 
               <div className="input-field">
                 <input
