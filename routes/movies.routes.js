@@ -34,7 +34,16 @@ router.post(
       }
       const { id, title, year, format, stars } = req.body;
       const arrStars = stars.split(" ");
-      const movie = new Movies({ id, title, year, format, stars: arrStars });
+     
+      let result = [];
+      for (let str of arrStars) {
+        if (!result.includes(str)) {
+          //str = str + ', '
+          result.push(str);
+        }
+      }
+
+      const movie = new Movies({ id, title, year, format, stars: result });
       await movie.save();
 
       res.status(201).json({ message: "Movie added" });

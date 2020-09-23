@@ -132,7 +132,7 @@ export const Movies = () => {
                   <div>
                     <div>Release year: {movie.year}</div>
                     <div>Format: {movie.format}</div>
-                    <div>Stars: {movie.stars}</div>
+                    <div>Stars: {movie.stars + ', '}</div>
                   </div>
                 ) : null}
               </div>
