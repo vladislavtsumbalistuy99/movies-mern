@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 import Select from "react-select";
-
+import swal from 'sweetalert';
 
 
 export const AddMovies = () => {
@@ -70,17 +70,29 @@ export const AddMovies = () => {
         format: "",
         stars: [],
       });
+      setSelectedOption(null)
     } catch (e) {}
   };
 
   const handleChangeFile = (e) => {
     e.preventDefault();
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const movies = e.target.result;
-      stringMoviesToArray(movies);
-    };
-    reader.readAsText(e.target.files[0]);
+    if (e.target.files[0].type == 'text/plain') {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const movies = e.target.result;
+        if(movies === ''){
+          document.getElementById("fileLoader").value = "";
+          swal("Oops!", "File should not be empty!", "error");
+          return;
+        }
+        stringMoviesToArray(movies);
+      };
+      reader.readAsText(e.target.files[0]);
+    } else {
+      e.target.value = null;
+      swal("Oops!", "File should be .txt!", "error");
+    }
+
   };
 
   const stringMoviesToArray = (movies) => {
@@ -181,7 +193,7 @@ export const AddMovies = () => {
               Add movie
             </button>
             <p className="card-title white-text">Or just upload a file:</p>
-            <input type="file" onChange={handleChangeFile} />
+            <input type="file" onChange={handleChangeFile} id='fileLoader' />
             <button
               className="btn yellow darken-4"
               style={{ marginRight: 10 }}

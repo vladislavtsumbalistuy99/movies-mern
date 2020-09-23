@@ -50,7 +50,7 @@ export const Movies = () => {
         //message(data.message);
       }
       else {
-        swal("Your imaginary file is safe!");
+        swal("Your moovie is safe!");
       }
     } catch (e) {}
    
@@ -122,7 +122,7 @@ export const Movies = () => {
           <label htmlFor="icon_prefix2">Search</label>
         </div>
       </div>
-      {currentMovies.map((movie) => (
+      {currentMovies.length > 0 ? currentMovies.map((movie) => (
         <div className="row" key={movie.id}>
           <div className="col s6 offset-s3">
             <div className="card blue darken-1">
@@ -154,7 +154,10 @@ export const Movies = () => {
             </div>
           </div>
         </div>
-      ))}
+      )) : (<p style={{
+        textAlign:'center',
+        fontSize:48
+      }}>Nothing found</p>)}
       <Pagination
         moviesPerPage={moviesPerPage}
         totalMovies={movies.length}

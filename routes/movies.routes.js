@@ -60,9 +60,14 @@ router.delete("/:id", async (req, res) => {
 router.get("/search/:param", async (req, res) => {
   try {
     const { param } = req.params;
-    const moviesByTitle = await Movies.findOne({ title: param });
+    const moviesByTitle = await Movies.find({ $text: { $search: param } });
     const moviesBystar = await Movies.find({ stars: param });
-    const movies = moviesByTitle || moviesBystar;
+    let movies;
+    if (moviesByTitle.length >0){
+      movies = moviesByTitle
+    } else {
+      movies = moviesBystar
+    }
     res.json(movies);
   } catch (e) {
     res.status(500).json({ message: "Oops, something went wrong..." });
@@ -72,7 +77,10 @@ router.get("/search/:param", async (req, res) => {
 router.get("/sort", async (req, res) => {
   try {
     Movies.find(function (err, movies) {
-      movies.sort((a, b) => (a.title > b.title ? 1 : -1));
+      movies.sort((a, b) => {
+        let x = a.title.toLowerCase();
+        let y = b.title.toLowerCase()
+        return( x > y ? 1 : -1)});
       res.json(movies);
     });
   } catch (e) {

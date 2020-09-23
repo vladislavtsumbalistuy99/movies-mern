@@ -7,4 +7,6 @@ var schema = mongoose.Schema({
     stars: {type: Array, required: true},
 })
 
+schema.index({title:'text'})
+
 module.exports = mongoose.model('Movies',schema)
